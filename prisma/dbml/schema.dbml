@@ -1,0 +1,85 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table plans {
+  id String [pk]
+  title String [not null]
+  description String
+  price Int [not null]
+  CustomerPlan customerplans [not null]
+}
+
+Table customerplans {
+  id String [pk]
+  startDate DateTime [not null]
+  endDate DateTime [not null]
+  age Int [not null, default: 18]
+  isActive Boolean [not null, default: true]
+  customer users
+  customerId String
+  plan plans
+  planId String
+}
+
+Table accounts {
+  id String [pk]
+  userId String [not null]
+  type String [not null]
+  provider String [not null]
+  providerAccountId String [not null]
+  refresh_token String
+  access_token String
+  expires_at Int
+  token_type String
+  scope String
+  id_token String
+  session_state String
+  oauth_token_secret String
+  oauth_token String
+  user users [not null]
+
+  indexes {
+    (provider, providerAccountId) [unique]
+  }
+}
+
+Table sessions {
+  id String [pk]
+  sessionToken String [unique, not null]
+  userId String [not null]
+  expires DateTime [not null]
+  user users [not null]
+}
+
+Table users {
+  id String [pk]
+  name String
+  email String [unique]
+  age Int
+  emailVerified DateTime
+  image String
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  accounts accounts [not null]
+  sessions sessions [not null]
+  CustomerPlan customerplans [not null]
+}
+
+Table verificationtokens {
+  identifier String [not null]
+  token String [unique, not null]
+  expires DateTime [not null]
+
+  indexes {
+    (identifier, token) [unique]
+  }
+}
+
+Ref: customerplans.customerId > users.id
+
+Ref: customerplans.planId > plans.id
+
+Ref: accounts.userId > users.id [delete: Cascade]
+
+Ref: sessions.userId > users.id [delete: Cascade]
