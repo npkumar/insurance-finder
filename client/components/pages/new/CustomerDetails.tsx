@@ -2,14 +2,17 @@ import { Col, DatePicker, InputNumber, Row, Space } from "antd";
 import moment from "moment";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { useAppDispatch, useCustomerPlanAppSelector } from "../../../app/hooks";
+import {
+  useAppDispatch,
+  useCustomerPlanAppSelector,
+} from "../../../../app/hooks";
 import {
   dateFormat,
   setAge,
   setEndDate,
   setStartDate,
   setTotalPrice,
-} from "../../../features/customerPlan/customerPlanSlice";
+} from "../../../../features/customerPlan/customerPlanSlice";
 
 const StyledDatePicker = styled(DatePicker)`
   width: 100%;
@@ -24,10 +27,7 @@ const CustomerDetails = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const noOfWeeks = Math.abs(
-      moment(endDate).diff(moment(startDate), "weeks")
-    );
-    dispatch(setTotalPrice(noOfWeeks * price));
+    dispatch(setTotalPrice());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate, endDate, price]);
 
@@ -38,6 +38,7 @@ const CustomerDetails = () => {
       </Col>
       <Col span={12}>
         <StyledDatePicker
+          data-testid="starting-date"
           allowClear={false}
           value={moment(startDate)}
           disabledDate={(currentDate) => currentDate.isBefore(moment())}
@@ -52,6 +53,7 @@ const CustomerDetails = () => {
       </Col>
       <Col span={12}>
         <StyledDatePicker
+          data-testid="ending-date"
           allowClear={false}
           value={moment(endDate)}
           disabledDate={(currentDate) => currentDate.isBefore(startDate)}

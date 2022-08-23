@@ -1,10 +1,17 @@
 import { Plan } from "@prisma/client";
 import { Col, Row, Select } from "antd";
 import { useEffect } from "react";
-import { useAppDispatch, useCustomerPlanAppSelector } from "../../../app/hooks";
-import { usePlans } from "../../../client/api/plan";
-import { setPlan } from "../../../features/customerPlan/customerPlanSlice";
+import styled from "styled-components";
+import {
+  useAppDispatch,
+  useCustomerPlanAppSelector,
+} from "../../../../app/hooks";
+import { usePlans } from "../../../../client/api/plan";
+import { setPlan } from "../../../../features/customerPlan/customerPlanSlice";
 
+const StyledSelect = styled(Select)`
+  width: 100%;
+`;
 const TypeSelector = () => {
   const { isLoading, plans } = usePlans();
   const { plan } = useCustomerPlanAppSelector();
@@ -18,9 +25,8 @@ const TypeSelector = () => {
   return (
     <Row gutter={[16, 16]}>
       <Col span={24}>
-        <Select
+        <StyledSelect
           disabled={isLoading}
-          style={{ width: "100%" }}
           onChange={(value) => {
             dispatch(setPlan(plans?.find((plan) => plan.id === value) as Plan));
           }}
@@ -33,7 +39,7 @@ const TypeSelector = () => {
               </Select.Option>
             );
           })}
-        </Select>
+        </StyledSelect>
       </Col>
       <Col span={24}>{plan?.description ?? "No description available"}</Col>
     </Row>

@@ -26,16 +26,17 @@ export const customerPlanSlice = createSlice({
   name: "customerPlanSlice",
   initialState,
   reducers: {
+    resetState: () => initialState,
     setPlan: (state, action: PayloadAction<Plan>) => {
       state.plan = action.payload;
       state.price = action.payload?.price ?? 1000;
     },
     setStartDate: (state, action: PayloadAction<string>) => {
-      state.startDate = action.payload;
+      state.startDate = moment(action.payload).format(dateFormat);
       state.endDate = moment(action.payload).add(1, "month").format(dateFormat);
     },
     setEndDate: (state, action: PayloadAction<string>) => {
-      state.endDate = action.payload;
+      state.endDate = moment(action.payload).format(dateFormat);
     },
     setAge: (state, action: PayloadAction<number>) => {
       state.age = action.payload;
@@ -43,13 +44,17 @@ export const customerPlanSlice = createSlice({
     setPrice: (state, action: PayloadAction<number>) => {
       state.price = action.payload;
     },
-    setTotalPrice: (state, action: PayloadAction<number>) => {
-      state.totalPrice = action.payload;
+    setTotalPrice: (state) => {
+      const noOfWeeks = Math.abs(
+        moment(state.endDate).diff(moment(state.startDate), "weeks")
+      );
+      state.totalPrice = state.price * noOfWeeks;
     },
   },
 });
 
 export const {
+  resetState,
   setPlan,
   setStartDate,
   setEndDate,

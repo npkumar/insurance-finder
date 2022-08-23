@@ -16,6 +16,9 @@ export default async function handler(
       include: {
         plan: true,
       },
+      orderBy: {
+        startDate: "asc",
+      },
     });
 
     return res.status(200).json(customerPlans);

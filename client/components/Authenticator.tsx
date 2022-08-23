@@ -12,7 +12,7 @@ const Authenticator = ({ children }: { children: React.ReactNode }) => {
       router.push("/login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  });
+  }, [status]);
 
   if (status === "loading") {
     return <Skeleton paragraph={{ rows: 4 }} />;

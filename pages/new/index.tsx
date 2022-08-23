@@ -5,9 +5,9 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useCustomerPlanAppSelector } from "../../app/hooks";
 import { createCustomerPlan } from "../../client/api/customerPlan";
-import Confirmation from "./components/Comfirmation";
-import CustomerDetails from "./components/CustomerDetails";
-import TypeSelector from "./components/TypeSelector";
+import Confirmation from "../../client/components/pages/new/Comfirmation";
+import CustomerDetails from "../../client/components/pages/new/CustomerDetails";
+import TypeSelector from "../../client/components/pages/new/TypeSelector";
 
 const { Step } = Steps;
 
