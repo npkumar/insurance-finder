@@ -20,20 +20,20 @@ model Plan {
   id           String         @id @default(cuid())
   title        String
   description  String?
-  price        Int
+  price        Int            @default(1000)
   CustomerPlan CustomerPlan[]
 
   @@map("plans")
 }
 
 model CustomerPlan {
-  id        String   @id @default(cuid())
-  startDate DateTime @map("start_date")
-  endDate   DateTime @map("end_date")
-  age       Int      @default(18)
-  isActive  Boolean  @default(true) @map("is_active")
-
-  customer   User?   @relation(fields: [customerId], references: [id])
+  id         String   @id @default(cuid())
+  startDate  DateTime @map("start_date")
+  endDate    DateTime @map("end_date")
+  age        Int      @default(18)
+  isActive   Boolean  @default(true) @map("is_active")
+  totalPrice Int      @default(0) @map("total_price")
+  customer   User?    @relation(fields: [customerId], references: [id])
   customerId String?
 
   plan   Plan?   @relation(fields: [planId], references: [id])

@@ -10,6 +10,7 @@ export interface CustomerPlanState {
   endDate: string;
   age: number;
   price: number;
+  totalPrice: number;
 }
 
 export const initialState: CustomerPlanState = {
@@ -18,6 +19,7 @@ export const initialState: CustomerPlanState = {
   endDate: moment().add(1, "month").format(dateFormat),
   age: 18,
   price: 1000,
+  totalPrice: 1000,
 };
 
 export const customerPlanSlice = createSlice({
@@ -30,6 +32,7 @@ export const customerPlanSlice = createSlice({
     },
     setStartDate: (state, action: PayloadAction<string>) => {
       state.startDate = action.payload;
+      state.endDate = moment(action.payload).add(1, "month").format(dateFormat);
     },
     setEndDate: (state, action: PayloadAction<string>) => {
       state.endDate = action.payload;
@@ -40,10 +43,19 @@ export const customerPlanSlice = createSlice({
     setPrice: (state, action: PayloadAction<number>) => {
       state.price = action.payload;
     },
+    setTotalPrice: (state, action: PayloadAction<number>) => {
+      state.totalPrice = action.payload;
+    },
   },
 });
 
-export const { setPlan, setStartDate, setEndDate, setAge, setPrice } =
-  customerPlanSlice.actions;
+export const {
+  setPlan,
+  setStartDate,
+  setEndDate,
+  setAge,
+  setPrice,
+  setTotalPrice,
+} = customerPlanSlice.actions;
 
 export const customerPlanReducer = customerPlanSlice.reducer;

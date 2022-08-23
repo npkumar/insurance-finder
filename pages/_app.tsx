@@ -8,8 +8,19 @@ import { Provider as ReduxProvider } from "react-redux";
 
 import { Layout } from "antd";
 import { store } from "../app/store";
+import styled from "styled-components";
 
 const { Content } = Layout;
+
+const StyledLayout = styled(Layout)`
+  padding: 0 24px;
+`;
+
+const StyledContent = styled(Content)`
+  padding: 24px;
+  margin: 0;
+  height: 90vh;
+`;
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -17,17 +28,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Authenticator>
         <ReduxProvider store={store}>
           <HeaderCustom />
-          <Layout style={{ padding: "0 24px" }}>
-            <Content
-              style={{
-                padding: 24,
-                margin: 0,
-                height: "90vh",
-              }}
-            >
+          <StyledLayout>
+            <StyledContent>
               <Component {...pageProps} />
-            </Content>
-          </Layout>
+            </StyledContent>
+          </StyledLayout>
         </ReduxProvider>
       </Authenticator>
     </SessionProvider>

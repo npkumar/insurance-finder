@@ -6,7 +6,7 @@ Table plans {
   id String [pk]
   title String [not null]
   description String
-  price Int [not null]
+  price Int [not null, default: 1000]
   CustomerPlan customerplans [not null]
 }
 
@@ -16,6 +16,7 @@ Table customerplans {
   endDate DateTime [not null]
   age Int [not null, default: 18]
   isActive Boolean [not null, default: true]
+  totalPrice Int [not null, default: 0]
   customer users
   customerId String
   plan plans

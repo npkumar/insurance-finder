@@ -19,7 +19,7 @@ const Header = () => {
           <SignOutButton key="signout" />
         ) : (
           <Link href="/api/auth/signin" key="login">
-            <Button type="primary">Log in</Button>
+            <Button type="primary">Log In</Button>
           </Link>
         ),
       ]}
