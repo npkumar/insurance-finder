@@ -1,12 +1,20 @@
 import { NextPage } from "next";
-import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Login: NextPage = () => {
-    return <div>
-       <Link href="/api/auth/signin">
-          <a>Log in</a>
-        </Link>
-    </div>
-}
+  const { status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status]);
+
+  return <div>Login</div>;
+};
 
 export default Login;
