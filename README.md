@@ -19,9 +19,11 @@ https://user-images.githubusercontent.com/7235671/186063628-e5a2007b-a2b8-4c7a-b
 ## Technology Stack
 
 - [Next.Js](https://nextjs.org/)
+- Backend uses serverless API routes (Node.JS)
 - Added social authentication using Github using [NextAuth](https://next-auth.js.org/)
 - Typescript ORM using [Prisma](https://www.prisma.io/)
 - SQL database used from [PlanetScale](https://planetscale.com/)
+- Styling using [Styled Components](https://styled-components.com/)
 - Deployed to [Vercel](https://vercel.com)
 - Unit testing using [Jest](https://jestjs.io/) and [React testing lib](https://testing-library.com/docs/react-testing-library/intro/)
 - For the sake of demo, local db and production db is the same.
